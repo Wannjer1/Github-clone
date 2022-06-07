@@ -1,0 +1,29 @@
+{% extends "insta/base.html" %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <!-- IG authentication phone image -->
+      <h1>an image will go inside this div</h1>
+    </div>
+    <div class="col">
+      <!-- login form -->
+      <div style="margin: 50px" class="p-3 border border-secondary text-center">
+        <h1>Instagram</h1>
+        <form action="" method="post">
+          {% csrf_token %} {{login_form|crispy}}
+          <div id="login-btn">
+            <button type="submit" class="btn btn-primary">Log in</button>
+          </div>
+        </form>
+      </div>
+      <!-- account signup form link -->
+      <div style="margin: 50px" class="p-3 border border-secondary text-center">
+        <p class="m-1">
+          Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
