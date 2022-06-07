@@ -1,0 +1,7 @@
+{% extends "insta/base.html" %} {% block content %} {% load crispy_forms_tags %}
+<div class="container">
+  <h1>You have been Logged out</h1>
+  <h5><a href="{% url 'login' %}">Log in In Again</a></h5>
+</div>
+
+{% endblock %}
