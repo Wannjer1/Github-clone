@@ -34,7 +34,13 @@ Run automated tests for this system
 
 With all environment variables changed to suit your local copy of this repository, deploy the application to Heroku to see it live
 
-## Behaviour Driven Development
+## User stories
+
+- A user can login and log out of the application
+- A user can see different photos posted by other users
+- A user can create their own profile and post, update and delete pictures
+- A user can like a photo
+- A user click on an image to view details of the photo
 
 ## Built with
 
