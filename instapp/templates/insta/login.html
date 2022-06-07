@@ -1,4 +1,4 @@
-{% extends "insta/base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "insta/base.html" %} {% block content %} {% load crispy_forms_tags %}
 
 <div class="container-fluid">
   <div class="row">
@@ -8,13 +8,16 @@
     </div>
     <div class="col">
       <!-- login form -->
-      <div style="margin: 50px" class="p-3 border border-secondary text-center">
-        <h1>Instagram</h1>
-        <form action="" method="post">
+      <div style="margin: 50px" class="p-3 border border-secondary">
+        <h1 class="text-center m-3">Instagram</h1>
+        <form action="" method="POST">
           {% csrf_token %} {{login_form|crispy}}
           <div id="login-btn">
-            <button type="submit" class="btn btn-primary">Log in</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+              Log in
+            </button>
           </div>
+          <small><p class="text-center m-3">forgot password?</p></small>
         </form>
       </div>
       <!-- account signup form link -->
