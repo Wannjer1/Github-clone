@@ -11,7 +11,20 @@ from django.contrib import messages
 # registration view function
 
 def register(request):
-    return render (request, 'insta/register.html')
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # login(request, user)
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Hi {username}, your account was created successfully')
+            
+            return redirect("home")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    else:
+        form = NewUserForm()
+    
+    return render (request, "insta/register.html", context={"form":form})
 
 # login view function
 def login(request):
@@ -23,16 +36,17 @@ def login(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                login(request,user)
+                # login(request,user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect('insta/home.html')
+                return redirect('home')
             else:
                 messages.error(request,"Invalid username or password.")
         else:
             messages.error(request,"Invalid username or password.")
 
-    form = AuthenticationForm()
-    return render (request=request, template_name='insta/login.html', context={"login_form": form})
+    else:
+        form = AuthenticationForm()
+    return render (request, 'insta/login.html', context={"login_form": form})
 
 def home(request):
     return render (request, 'insta/index.html')
