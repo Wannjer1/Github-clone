@@ -1,1 +1,21 @@
-<h1>hey i am the registration form</h1>
+{% extends "insta/base.html" %} {% block content %} {% load crispy_forms_tags %}
+
+<!-- registration form -->
+<div class="container p-5">
+  <div class="m-auto p-3 w-50 border border-secondary ">
+    <h1 class="text-center m-3">Instagram</h1>
+    <p class="text-center">Sign up to see photos from your friends</p>
+    <button class="btn btn-primary btn-lg btn-block">Log in with Facebook</button>
+    <hr />
+    <form action="" method="POST">
+      {% csrf_token %} {{ register_form|crispy }}
+      <p class="text-center">By signing up you agree to our Terms,Data,Policy and Cookies Policy</p>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+    </form>
+    <div>
+      <p class="text-center m-3">Have an account already?,<a href="{% url 'login' %}"'">Log in</a></p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
