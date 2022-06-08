@@ -36,9 +36,11 @@ class Profile(models.Model):
         return self.username
 
     def save_profile(self):
+        '''method to save profile'''
         self.save()
 
     def delete_profile(self):
+        '''method to delete profile'''
         self.delete()
 
     def update_bio(self, new_bio):
@@ -63,10 +65,26 @@ class Comment(models.Model):
     date_posted= models.DateTimeField(auto_now_add=True,blank=True,null=True)
 
     def save_comment(self):
+        '''method to save a comment'''
         self.save()
 
     def delete_comment(self):
+        '''method to delete a comment'''
         self.delete()
 
     def __str__(self):
         return self.comment
+
+
+class Relation(models.Model):
+    ''' model for user relations: follower-following system'''
+    followers = models.ForeignKey('Profile', related_name='following', on_delete=models.CASCADE)
+    following = models.ForeignKey('Profile', related_name='followers', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('followers', 'following')
+
+    def __str__(self):
+        return '{self.followers} follows {self.following}'
+
+    
