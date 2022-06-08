@@ -18,11 +18,19 @@
         Search
       </button>
     </form>
-    <div>
+    {% if user.is_anonymous %}
+    <div class="">
+      <a href="{% url 'register' %}"
+        ><i class="fa-solid fa-user-astronaut" style="font-size: 26px"></i
+      ></a>
+    </div>
+    {% else %}
+    <div class="">
       <a href="{% url 'profile' request.user.id %}"
         ><i class="fa-solid fa-user-astronaut" style="font-size: 26px"></i
       ></a>
     </div>
+    {% endif %}
   </nav>
 </div>
 

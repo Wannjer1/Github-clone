@@ -14,7 +14,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Image
-from django.urls import reverse
 
 
 
@@ -92,9 +91,9 @@ def register(request):
             # recipients=[email]
             # send_mail(subject, message,from_email,recipients,fail_silently=False)
 
-			user = form.save()
+			form.save()
 			messages.success(request, "Registration successful." )
-			return redirect("home")
+			return redirect(reverse("home"))
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm()
 	return render (request, "insta/register.html", context={"register_form":form})
