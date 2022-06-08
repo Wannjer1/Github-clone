@@ -1,6 +1,23 @@
-{% extends 'users/base.html' %} {% load crispy_forms_tags %} {% block content %}
-<div class="container">
-  <h2>{{user.username}}</h2>
-  <h2>{{user.email}}</h2>
+{% extends 'insta/base.html' %} {% load crispy_forms_tags %} {% block content %}
+<!-- navbar -->
+<div class="container-fluid">
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Instagram</a>
+    <form class="form-inline">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </form>
+    <div>
+      <a href="{% url 'profile' %}">Profile</a>
+    </div>
+  </nav>
 </div>
+
 {% endblock %}

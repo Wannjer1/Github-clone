@@ -3,6 +3,12 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from .forms import *
+from django.urls import reverse
+from .email import send_welcome_email
+from email import message
+from email.mime import image
+from django.core.mail import send_mail
+from django.conf import settings
 # authentication
 from django.contrib.auth import *
 from django.contrib import messages
@@ -15,7 +21,33 @@ from django.urls import reverse
 # Create your views here.
 # registration view function
 def home(request):
-    return render (request, 'insta/index.html')
+
+    profile=Profile.objects.all()
+    posts= Image.objects.all()
+    form=CommentForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        messages.success(request,('comment posted'))
+
+    
+    return render (request, 'insta/index.html', context={'profile': profile, 'posts': posts,'form': form})
+
+# comment view function
+def comment(request,image_id):
+    comment=Comment.objects.all()
+    post=Image.objects.get(id=image_id)
+    if request.method == 'POST':
+        form=CommentForm(request.POST )
+        if form.is_valid():
+            form=form.save(commit=False)
+            form.post=post
+            form.save()
+            return redirect('home')
+    else:
+        form=CommentForm()
+    return render(request, 'comments.html',{'comment':comment,'form':form,'post':post})
+
 
 @login_required()
 def profile(request):
@@ -38,6 +70,8 @@ def register(request):
     
     return render (request, "insta/register.html", context={"form":form})
 
+
+# authentication
 # login view function
 def login(request):
     if request.method == 'POST':
@@ -60,5 +94,23 @@ def login(request):
         form = AuthenticationForm()
     return render (request, 'insta/login.html', context={"login_form": form})
 
+# register view function
+def register(request):
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+            # username=request.POST['username']
+            # email=request.POST['email']
+            # subject='welcome to InstaApp'
+            # message=f'Hi {username} welcome to InstaApp and have fun! '
+            # from_email=settings.EMAIL_HOST_USER
+            # recipients=[email]
+            # send_mail(subject, message,from_email,recipients,fail_silently=False)
 
+			user = form.save()
+			messages.success(request, "Registration successful." )
+			return redirect("home")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = NewUserForm()
+	return render (request, "insta/register.html", context={"register_form":form})
 
