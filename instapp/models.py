@@ -32,15 +32,24 @@ class Profile(models.Model):
     bio = models.TextField(max_length=200,blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.username
+
     def save_profile(self):
         self.save()
 
     def delete_profile(self):
         self.delete()
 
-    def __str__(self):
-        return self.name
+    def update_bio(self, new_bio):
+        '''method to update user bio'''
+        self.bio = new_bio
+        self.save()
 
+    def update_image(self,user_id, new_image):
+        '''method to update a users profile image'''
+        self.photo = new_image
+        self.save()
  
 
 class Likes(models.Model):
