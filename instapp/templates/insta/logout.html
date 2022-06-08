@@ -1,7 +1,15 @@
-{% extends "insta/base.html" %} {% block content %} {% load crispy_forms_tags %}
-<div class="container">
-  <h1>You have been Logged out</h1>
-  <h5><a href="{% url 'login' %}">Log in In Again</a></h5>
+{% extends "insta/base.html" %} {% load static %} {% block content %}
+<!-- random comment -->
+
+<div class="container m-auto text-center p-3">
+  <h3 style="color: red">You have been Logged out!"</h3>
+  <h5>
+    Click here to <small><a href="{% url 'login' %}">Log in In Again</a></small>
+  </h5>
+  <!-- instagram gif -->
+  <div class="mt-3 p-2">
+    <img src='{% static "instapp\images\ig.gif" %}' />
+  </div>
 </div>
 
 {% endblock %}
