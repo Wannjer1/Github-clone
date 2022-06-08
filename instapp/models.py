@@ -26,7 +26,7 @@ class Image(models.Model):
 class Profile(models.Model):
     name = models.CharField(max_length=200, blank=True)
     username = models.CharField(max_length=200, blank=True)
-    profile_photo = models.ImageField(upload_to='pics/',blank=True)
+    profile_photo = models.ImageField(upload_to='images/',blank=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True,blank=True)
     bio = models.TextField(max_length=200,blank=True)
 
@@ -43,3 +43,18 @@ class Profile(models.Model):
 class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='user_likes')
     image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='image_likes')
+
+class Comment(models.Model):
+    post = models.ForeignKey(Image,on_delete=models.CASCADE,related_name='comments',null=True,blank=True)
+    poster = models.ForeignKey(User,on_delete=models.CASCADE,related_name='poster',null=True,blank=True)
+    comment=models.TextField(null=True,blank=True)
+    date_posted= models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+
+    def __str__(self):
+        return self.comment
