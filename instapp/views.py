@@ -43,7 +43,6 @@ def comment(request,image_id):
     return render(request, 'comments.html',{'comment':comment,'form':form,'post':post})
 
 # profile function
-@login_required()
 def profile(request,user_id):
     profile=User.objects.filter(pk=user_id)
     # print(profile)
