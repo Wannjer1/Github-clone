@@ -26,7 +26,13 @@
   {% for user in profile %}
   <!-- profile picture section -->
   <div>
-    <!-- <img src="" class="rounded-circle" alt = "Rounded Image" width = "200" height = "200"> -->
+    <img
+      src="{{ user.profile_photo.url}}"
+      class="rounded-circle"
+      alt="Rounded Image"
+      width="200"
+      height="200"
+    />
     <h3>{{ user.username }}</h3>
 
     <h4>{{ user.email }}</h4>

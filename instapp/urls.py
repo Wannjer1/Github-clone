@@ -11,7 +11,7 @@ urlpatterns = [
     path('logout/',auth_view.LogoutView.as_view(template_name='insta/logout.html'), name="logout"),
     path('home/',views.home, name='home'),
     path('profile/<int:user_id>',views.profile, name='profile'),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] 
 
-# if settings.DEBUG:
-#     urlpatterns+= 
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

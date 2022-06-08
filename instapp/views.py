@@ -13,7 +13,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Image, Profile
+from .models import Image
 from django.urls import reverse
 
 
@@ -47,8 +47,14 @@ def comment(request,image_id):
 @login_required()
 def profile(request,user_id):
     profile=User.objects.filter(pk=user_id)
-    print(profile)
+    # print(profile)
     return render(request, 'insta/profile.html',{'profile': profile})
+
+# new profile image function
+
+
+
+
 
 # authentication
 # login view function
