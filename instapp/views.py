@@ -10,7 +10,7 @@ from email.mime import image
 from django.core.mail import send_mail
 from django.conf import settings
 # authentication
-from django.contrib.auth import *
+from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Image, Profile
@@ -21,13 +21,11 @@ from django.urls import reverse
 
 
 # Create your views here.
-# registration view function
+#home function that displayes all posts
 def home(request):
     pictures = Image.objects.all()
 
     return render(request, 'insta/index.html', {'pictures': pictures,}) 
-
-
 
 
 # comment view function
@@ -45,7 +43,7 @@ def comment(request,image_id):
         form=CommentForm()
     return render(request, 'comments.html',{'comment':comment,'form':form,'post':post})
 
-
+# profile function
 @login_required()
 def profile(request):
     profile=Profile.objects.all()
@@ -62,7 +60,7 @@ def login(request):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                # login(request,user)
+                login(request,user)
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect('home')
             else:
@@ -94,3 +92,8 @@ def register(request):
 	form = NewUserForm()
 	return render (request, "insta/register.html", context={"register_form":form})
 
+# logout view function
+def logout(request):
+    logout(request)
+
+    return render (request, 'insta/logout.html')
