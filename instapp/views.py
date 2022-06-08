@@ -18,20 +18,17 @@ from django.urls import reverse
 
 
 
+
+
 # Create your views here.
 # registration view function
 def home(request):
+    pictures = Image.objects.all()
 
-    profile=Profile.objects.all()
-    posts= Image.objects.all()
-    form=CommentForm(request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-        messages.success(request,('comment posted'))
+    return render(request, 'insta/index.html', {'pictures': pictures,}) 
 
-    
-    return render (request, 'insta/index.html', context={'profile': profile, 'posts': posts,'form': form})
+
+
 
 # comment view function
 def comment(request,image_id):
@@ -53,23 +50,6 @@ def comment(request,image_id):
 def profile(request):
     profile=Profile.objects.all()
     return render(request, 'insta/profile.html',{'profile': profile})
-
-def register(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # login(request, user)
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Hi {username}, your account was created successfully')
-            
-            return redirect("home")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    else:
-        form = NewUserForm()
-    
-    return render (request, "insta/register.html", context={"form":form})
-
 
 # authentication
 # login view function

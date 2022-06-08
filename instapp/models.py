@@ -10,6 +10,7 @@ class Image(models.Model):
     imge_caption = models.CharField(max_length=200,blank=True)
     date_posted = models.DateTimeField(auto_now_add=True,blank=True)
     likes=models.IntegerField(default=0)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def total_likes(self):
         return self.likess.count()
@@ -26,9 +27,10 @@ class Image(models.Model):
 class Profile(models.Model):
     name = models.CharField(max_length=200, blank=True)
     username = models.CharField(max_length=200, blank=True)
-    profile_photo = models.ImageField(upload_to='images/',blank=True)
+    profile_photo = models.ImageField(upload_to='pics/',blank=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True,blank=True)
     bio = models.TextField(max_length=200,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def save_profile(self):
         self.save()
@@ -38,6 +40,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+
  
 
 class Likes(models.Model):

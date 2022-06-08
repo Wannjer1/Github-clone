@@ -8,10 +8,10 @@ from django.contrib.auth import views as auth_view
 urlpatterns = [
     path('',views.login, name='login'),
     path('register/',views.register, name='register'),
-    path('home/',views.home, name='home'),
     path('logout/',auth_view.LogoutView.as_view(template_name='insta/logout.html'), name="logout"),
+    path('home/',views.home, name='home'),
     path('profile/',views.profile, name='profile'),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 # if settings.DEBUG:
-#     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+#     urlpatterns+= 

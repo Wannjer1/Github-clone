@@ -20,4 +20,27 @@
   </nav>
 </div>
 
+<!-- display section -->
+<div class="row m-4">
+  {% for picture in pictures %}
+  <div class="col col-md-8 mx-auto">
+    <div class="card mb-2" data-toggle="modal">
+      <h3>{{picture.author.username}}</h3>
+      <img
+        class="card-img-top"
+        src="{{ picture.image.url}}"
+        alt="Card image cap"
+      />
+      <div class="card-footer">
+        <p>
+          <strong>{{picture.author.username}}:</strong>{{ picture.imge_caption}}
+        </p>
+        <small class="text-muted">{{ picture.date_posted}}</small>
+        <hr />
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
 {% endblock %}
