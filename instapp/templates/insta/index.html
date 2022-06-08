@@ -1,8 +1,12 @@
-{% extends "insta/base.html" %} {% block content %}
+{% extends "insta/base.html" %} {% load static %} {% block content %}
 <!-- navbar -->
 <div class="container-fluid">
   <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand">Instagram</a>
+    <a class="navbar-brand">
+      <img src='{% static "instapp\images\ig.svg" %}' /><strong
+        >InstApp</strong
+      ></a
+    >
     <form class="form-inline">
       <input
         class="form-control mr-sm-2"
@@ -15,7 +19,9 @@
       </button>
     </form>
     <div>
-      <a href="{% url 'profile' %}">Profile</a>
+      <a href="{% url 'profile' request.user.id %}"
+        ><i class="fa-solid fa-user-astronaut" style="font-size: 26px"></i
+      ></a>
     </div>
   </nav>
 </div>
@@ -25,7 +31,8 @@
   {% for picture in pictures %}
   <div class="col col-md-8 mx-auto">
     <div class="card mb-2" data-toggle="modal">
-      <h3>{{picture.author.username}}</h3>
+      <h3><strong>{{picture.author.username}}</strong></h3>
+
       <img
         class="card-img-top"
         src="{{ picture.image.url}}"

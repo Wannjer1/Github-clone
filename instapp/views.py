@@ -45,13 +45,14 @@ def comment(request,image_id):
 
 # profile function
 @login_required()
-def profile(request):
-    profile=Profile.objects.all()
+def profile(request,user_id):
+    profile=User.objects.filter(pk=user_id)
+    print(profile)
     return render(request, 'insta/profile.html',{'profile': profile})
 
 # authentication
 # login view function
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         form = AuthenticationForm(request,data=request.POST)
         if form.is_valid():
@@ -63,8 +64,8 @@ def login(request):
                 login(request,user)
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect('home')
-            else:
-                messages.error(request,"Invalid username or password.")
+            # else:
+            #     messages.error(request,"Invalid username or password.")
         else:
             messages.error(request,"Invalid username or password.")
 

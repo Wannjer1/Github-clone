@@ -1,8 +1,9 @@
-{% extends 'insta/base.html' %} {% load crispy_forms_tags %} {% block content %}
+{% extends 'insta/base.html' %} {% load crispy_forms_tags %} {% load static %}
+{% block content %}
 <!-- navbar -->
 <div class="container-fluid">
   <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand">Instagram</a>
+    <a class="navbar-brand" href="{% url 'home' %}">InstApp</a>
     <form class="form-inline">
       <input
         class="form-control mr-sm-2"
@@ -15,9 +16,35 @@
       </button>
     </form>
     <div>
-      <a href="{% url 'profile' %}">Profile</a>
+      <a href="{% url 'profile' request.user.id %}">{{user.username}}</a>
     </div>
   </nav>
 </div>
 
+<!-- profile section -->
+<div class="container">
+  {% for user in profile %}
+  <!-- profile picture section -->
+  <div>
+    <!-- <img src="" class="rounded-circle" alt = "Rounded Image" width = "200" height = "200"> -->
+    <h3>{{ user.username }}</h3>
+
+    <h4>{{ user.email }}</h4>
+  </div>
+  <!-- follow and following section -->
+  <!-- <div class="row">
+    <div class="col-">
+      {{user.posts}}
+    </div>
+    <div class="col-">
+      {{user.following}}
+    </div>
+    <div class="col-">
+      {{user.followers}}
+    </div>
+  </div> -->
+
+  <!-- images posted by user section -->
+  {% endfor %}
+</div>
 {% endblock %}
