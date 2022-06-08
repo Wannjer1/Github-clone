@@ -10,6 +10,7 @@ urlpatterns = [
     path('register/',views.register, name='register'),
     path('home/',views.home, name='home'),
     path('logout/',auth_view.LogoutView.as_view(template_name='insta/logout.html'), name="logout"),
+    path('profile/',views.profile, name='profile'),
 ]
 
 # if settings.DEBUG:
