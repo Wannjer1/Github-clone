@@ -1,14 +1,26 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 # this imports the  pre-built Django form logging in a user.
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from .forms import NewUserForm
-from django.contrib.auth import login, authenticate
+from django.http import HttpResponse,Http404,HttpResponseRedirect
+from .forms import *
+# authentication
+from django.contrib.auth import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import Image, Profile
+from django.urls import reverse
+
 
 
 # Create your views here.
 # registration view function
+def home(request):
+    return render (request, 'insta/index.html')
+
+@login_required()
+def profile(request):
+    profile=Profile.objects.all()
+    return render(request, 'insta/profile.html',{'profile': profile})
 
 def register(request):
     if request.method == "POST":
@@ -48,6 +60,5 @@ def login(request):
         form = AuthenticationForm()
     return render (request, 'insta/login.html', context={"login_form": form})
 
-def home(request):
-    return render (request, 'insta/index.html')
+
 
