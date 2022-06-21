@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from cloudinary.models import CloudinaryField
+from datetime import datetime
 
 # Create your models here.
 class Image(models.Model):
@@ -11,10 +12,11 @@ class Image(models.Model):
     imge_caption = models.CharField(max_length=200,blank=True)
     date_posted = models.DateTimeField(auto_now_add=True,blank=True)
     likes=models.IntegerField(default=0)
+    # keeping the default=0 in the likes means that likes will start from 0
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def total_likes(self):
-        return self.likess.count()
+        return self.likes.count()
 
     def save_image(self):
         self.save()
@@ -73,7 +75,7 @@ class Comment(models.Model):
         '''method to delete a comment'''
         self.delete()
 
-    def __str__(self):
+    def __str__(self): 
         return self.comment
 
 

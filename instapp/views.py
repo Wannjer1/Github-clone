@@ -15,6 +15,19 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Image
 
+from django.views.generic.edit import FormView
+
+class UpdateFormView(FormView):
+    template_name = 'insta/post.html'
+    form_class = PostForm
+
+    success_url = 'home'
+
+
+
+
+        
+
 
 
 
@@ -23,10 +36,28 @@ from .models import Image
 #home function that displayes all posts
 def home(request):
     pictures = Image.objects.all()
+    
 
     return render(request, 'insta/index.html', {'pictures': pictures,}) 
 
 
+# profile function
+def profile(request,user_id):
+    profile=User.objects.filter(id=user_id)
+    # print(profile)
+    return render(request, 'insta/profile.html',{'profile': profile})
+
+# new profile image function
+
+
+# funtion to post images
+def upload(request):
+
+    
+
+    return render(request, 'insta/post.html')
+
+ 
 # comment view function
 def comment(request,image_id):
     comment=Comment.objects.all()
@@ -41,15 +72,6 @@ def comment(request,image_id):
     else:
         form=CommentForm()
     return render(request, 'comments.html',{'comment':comment,'form':form,'post':post})
-
-# profile function
-def profile(request,user_id):
-    profile=User.objects.filter(pk=user_id)
-    # print(profile)
-    return render(request, 'insta/profile.html',{'profile': profile})
-
-# new profile image function
-
 
 
 

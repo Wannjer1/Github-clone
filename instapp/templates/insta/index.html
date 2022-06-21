@@ -18,6 +18,10 @@
         Search
       </button>
     </form>
+    <div class="">
+      <a href="{% url 'upload' %}">upload</a>
+    </div>
+
     {% if user.is_anonymous %}
     <div class="">
       <a href="{% url 'register' %}"
@@ -55,6 +59,7 @@
       </div>
     </div>
   </div>
+
   {% endfor %}
 </div>
 

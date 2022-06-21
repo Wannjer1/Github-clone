@@ -42,6 +42,22 @@ class ProfileForm(ModelForm):
         }
 
 
+# post a pic form
+class PostForm(ModelForm):
+    class Meta:
+        model = Image
+        fields = ['image', 'imge_caption' ]
+
+       
+
+        widgets={
+            'imge_caption': forms.Textarea(attrs={'class': 'form-control','placeholder':'image caption'}),
+
+        }
+
+
+
+
 # comment form
 class CommentForm(ModelForm):
     class Meta:
@@ -56,5 +72,8 @@ class CommentForm(ModelForm):
 
         widgets={
            'comment': forms.TextInput(attrs={'placeholder':' post a comment '}),
+           'post': forms.Textarea(attrs={'class': 'form-control','placeholder':'Enter post text'}),
+
+
         }
 

@@ -11,6 +11,7 @@ urlpatterns = [
     path('logout/',auth_view.LogoutView.as_view(template_name='insta/logout.html'), name="logout"),
     path('home/',views.home, name='home'),
     path('profile/<int:user_id>',views.profile, name='profile'),
+    path('upload/', views.upload, name='upload'),
 ] 
 
 if settings.DEBUG:
